@@ -77,7 +77,7 @@ Efficiency:
 		On Natural Calamities and Mass Accidents, maximum number of users  will be Using.
 		System will be able to manage all transactions with isolation.
 
-Availability:24*7 available
+Availability:   24*7 available
 		 
 
 
