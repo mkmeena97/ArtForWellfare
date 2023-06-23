@@ -1,0 +1,42 @@
+Document:System Requirement Specification Document
+
+Title:System Reqruiement Spefication for Online portal (Art for Welfare)
+
+Team:
+	
+
+Objective (Purpose):
+	Purpose of this online portal is to interconnect people who have intrest in charity , who believe in donating, sharing ,giving to others
+   .Here we connect 3 parties i.e Customer , Artist, and NGO's. Our main motto is to help and donate money throgh art.we will connect artist 
+who want to donate their art for helping others .Also we will connect with some NGO who work for welfare of people. Now for we will our 
+customer who will buy arts from our portal .
+
+Scope:
+This portal allows artist's to add their products/arts and select NGO's where he can donate his money.NGO's can register them selg to portal 
+and they will be flash on portal. At the same time the customers will visit site and can chose the item they want to buy and can proceed with 
+ordering process.
+
+Definitions:
+	OSS: Online Shopping System
+	QA:  Quality Assurance
+	Portal: Peronalized Online Web Application
+	MIS: Management Information System
+	CRM: Customer Relation Managment
+	BI:  Business Intelligence
+	Dashboard: Personalized information presented using  BI techniques such grid, score card, graph
+
+Requirements:
+
+Functional Requirements: 
+
+Any annonymous User will be able to view different products avaialble for sale. Any User will be able select product to view from categories available. 
+Registered Artists will be able promote thier product for sale by adding products to the product catalog maintained by System.
+
+Whenever Anonymous user tries to buy product it should redirect to register page ,and should be authorised.
+
+Artists will be able to update product details of alredy existing product and also will be able to add new product.
+
+At the time of adding artist will be able select how much percent to be donated to NGO and also should be select his prefered NGO.
+
+At should have his separate login , where he can keep on updating his account details. 
+
