@@ -21,20 +21,30 @@ Definitions:
 	CRM: Customer Relation Managment
 	BI:  Business Intelligence
 	CRM: Customer Relationship Management
-	Dashboard: Personalized information presented using  BI techniques.
+	Dashboard: Personalized information presented using  BI techniques    .
 
 Requirements:
 
 Functional Requirements:
-Registered and authorized NGOs working for the benefit of underprivileged individuals suffering from severe diseases. These NGOs require patients to register themselves and provide all relevant treatment files, bills, and doctor's letters to verify their need for financialhelp. The NGOs carefully examine the backgrounds of these patients and review the provided documents with the help of their own doctors and team members to ensure that the patients are genuinely in need of support.
+To implement this initiative as a website, several functional requirements need to be considered. Here's an overview of how the website can work:
 
-To facilitate the fundraising process, the NGOs have registered themselves on the "Art For Welfare" portal. On this platform, artists who want to contribute to the cause can showcase their artwork. Instead of directly donating funds, artists can present their art pieces on the website, allowing visitors, art collectors, and potential buyers to show their interest in the artwork by making a purchase.
+1. User Registration: Artists, NGOs, and potential buyers should be able to register on the website. Artists will provide their personal details and upload samples of their artwork. NGOs will provide their registration information and background details. Potential buyers can create accounts to track their interests and purchases.
 
-This approach serves a dual purpose. Firstly, it promotes the beauty of art by providing a platform for artists to display their work and connect with potential buyers. Secondly, it supports a noble cause by generating funds through the sale of the artwork. The proceeds from the art sales are then used by the NGOs to provide financial assistance for the medical treatment and support of the registered patients who are genuinely in need.
+2. Artwork Showcase: The website should have a section where artists can showcase their artwork. Each artwork should have a description, images, and the artist's details. Visitors should be able to browse through the artwork, view details, and express their interest in purchasing.
 
-By combining the power of art with the goal of helping underprivileged individuals with severe diseases, this initiative creates a win-win situation. It encourages artists to contribute their talents while providing a means for individuals interested in art to support a worthy cause.
+3. Patient Registration: Patients seeking financial assistance should be able to register on the NGO's. They will provide their personal details, medical documents, treatment files, bills, and doctor's letters to verify their need for support. The website should have a secure system to handle sensitive medical information.
 
-If any Artist's need certain Information for acknowledgement of Patients and NGO's can Resolve and Acknowledge by Contacting CRM(Customer Relationship Management) Team.
+4. NGO Verification: Registered NGOs will have access to the patient information submitted. They will carefully examine the backgrounds of the patients and review the provided documents to ensure their genuine need for support. The NGOs can collaborate with their own doctors and team members to assist in the verification process.
+
+5. Fundraising through Art Sales: Interested buyers can browse the artwork and make purchases through the website. When a buyer expresses interest in purchasing a particular artwork, the website can facilitate the transaction process, including payment and shipping details. The proceeds from the art sales will go to the NGOs to provide financial assistance to the registered patients.
+
+6. CRM Integration: The website can have a dedicated Customer Relationship Management (CRM) system to manage interactions between artists, NGOs, patients, and potential buyers. Artists who need specific information for acknowledgement can contact the CRM team, which can assist in resolving queries and providing the necessary information.
+
+7. Reporting and Transparency: The website should provide regular reports and updates on the funds raised, patient support provided, and the impact of the initiative. This will help maintain transparency and build trust among artists, NGOs, patients, and potential buyers.
+
+8. User Support: The website should have a support system to address any issues or concerns raised by artists, NGOs, patients, and potential buyers. This can include a helpdesk, FAQs, and responsive customer support.
+
+By implementing these functional requirements, the website can effectively serve as a platform for artists to showcase their artwork, connect with potential buyers, and contribute to a noble cause, while NGOs can verify patient information and utilize the funds generated from art sales to provide financial assistance for medical treatments.
 
 
 Non Functional Requirements:
