@@ -1,8 +1,8 @@
 Database tables
-1.CustmerDetails
-2.ArtistDetails
-3.NGOInfo
-4.Orders
+1.CustmerDetails(cust_id,c_email,c_name,c_address,c_age)
+2.ArtistDetails(art_id,a_email,a_name,a_address,a_age)
+3.NGOInfo(NGO_id,adress,name,desc)
+4.Orders(orderid,o_Date,o_amount,payment_mode,order_status)
 5.OrderDetails
 6.ProductDetails
 7.ShipmentDetails
