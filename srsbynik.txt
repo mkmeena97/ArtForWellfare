@@ -30,13 +30,14 @@ Requirements:
 Functional Requirements: 
 
 Any annonymous User will be able to view different products avaialble for sale. Any User will be able select product to view from categories available. 
-Registered Artists will be able promote thier product for sale by adding products to the product catalog maintained by System.
+Registered Artists will be able promote thier product for sale by adding products to the product catalog maintained by System.Whenever Anonymous user 
+tries to buy product it should redirect to register page ,and should be authorised. While registering user should be authorised by sending otp on email 
+and mopbile number.Artists will be able to update product details of alredy existing product and also will be able to add new product.At the time of adding
+artist will be able select how much percent to be donated to NGO and also should be select his prefered NGO.Artist should have his separate login , where he 
+can keep on updating his account details and product details .NGO should have there own login where theywill be able share there registered document and will 
+be able to maintain there details.NGO's should be able to see the funding received.Artist should be able to rate NGO's and customers should be able to Art and 
+give feedback. Feedback should be visible on page. Product should be added to cart. Customer should be able to maintaiin the cart .Customer can add and remove 
+the item from the cart. Customer should be able to see the total amount of the item in the cart. User should be able to save the item and shoould be abe to maintain 
+wishlist.
 
-Whenever Anonymous user tries to buy product it should redirect to register page ,and should be authorised.
-
-Artists will be able to update product details of alredy existing product and also will be able to add new product.
-
-At the time of adding artist will be able select how much percent to be donated to NGO and also should be select his prefered NGO.
-
-At should have his separate login , where he can keep on updating his account details. 
 
