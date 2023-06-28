@@ -37,7 +37,10 @@ artist will be able select how much percent to be donated to NGO and also should
 can keep on updating his account details and product details .NGO should have there own login where theywill be able share there registered document and will 
 be able to maintain there details.NGO's should be able to see the funding received.Artist should be able to rate NGO's and customers should be able to Art and 
 give feedback. Feedback should be visible on page. Product should be added to cart. Customer should be able to maintaiin the cart .Customer can add and remove 
-the item from the cart. Customer should be able to see the total amount of the item in the cart. User should be able to save the item and shoould be abe to maintain 
-wishlist.
+the item from the cart. Customer should be able to see the total amount of the item in the cart. User should be able to save the item and should be abe to maintain 
+wishlist.Item can be added and removed from wishlist. At the time of Shopping user should be able to categorise products on the basis of different categories , on 
+basis of pricing from minimum to maximum or maximum to minimum. User should be also able to search the product of particular artist, also user can request for a 
+particular art (art on demand). 
+there should be multiple payment option (upi,cash on delievry,credit card ,debit card, internet banking ) 
 
 
