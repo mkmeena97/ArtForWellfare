@@ -1,0 +1,146 @@
+create database afs;
+use afs;
+
+CREATE TABLE Category (
+    cat_id INT PRIMARY KEY,
+    cat_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Roles (
+    role_id INT PRIMARY KEY,
+    role_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Questions (
+    que_id INT PRIMARY KEY,
+    que_text TEXT NOT NULL
+);
+
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY,
+    user_name VARCHAR(255),
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    role_id INT,
+    que_id INT,
+    answer TEXT,
+    approve BOOLEAN,
+    FOREIGN KEY (role_id) REFERENCES Roles(role_id),
+    FOREIGN KEY (que_id) REFERENCES Questions(que_id)
+);
+
+CREATE TABLE State (
+    state_id INT PRIMARY KEY,
+    state_name VARCHAR(255) NOT NULL
+);
+
+CREATE DATABASE afs;
+USE afs;
+
+CREATE TABLE Category (
+    cat_id INT PRIMARY KEY,
+    cat_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Roles (
+    role_id INT PRIMARY KEY,
+    role_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Questions (
+    que_id INT PRIMARY KEY,
+    que_text TEXT NOT NULL
+);
+
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY,
+    user_name VARCHAR(255),
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    role_id INT,
+    que_id INT,
+    answer TEXT,
+    approve BOOLEAN,
+    FOREIGN KEY (role_id) REFERENCES Roles(role_id),
+    FOREIGN KEY (que_id) REFERENCES Questions(que_id)
+);
+
+CREATE TABLE State (
+    state_id INT PRIMARY KEY,
+    state_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE City (
+    city_id INT PRIMARY KEY,
+    city_name VARCHAR(255) NOT NULL,
+    state_id INT,
+    FOREIGN KEY (state_id) REFERENCES State(state_id)
+);
+
+CREATE TABLE Area (
+    area_id INT PRIMARY KEY,
+    area_name VARCHAR(255) NOT NULL,
+    city_id INT,
+    FOREIGN KEY (city_id) REFERENCES City(city_id)
+);
+
+CREATE TABLE Artists (
+    artist_id INT PRIMARY KEY,
+    user_id INT,
+    fname VARCHAR(255),
+    lname VARCHAR(255),
+    area_id INT,
+    address VARCHAR(255),
+    contact VARCHAR(20),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (area_id) REFERENCES Area(area_id)
+);
+
+CREATE TABLE Customers (
+    cust_id INT PRIMARY KEY,
+    user_id INT,
+    fname VARCHAR(255),
+    lname VARCHAR(255),
+    area_id INT,
+    address VARCHAR(255),
+    contact VARCHAR(20),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (area_id) REFERENCES Area(area_id)
+);
+
+CREATE TABLE NGO (
+    ngo_id INT PRIMARY KEY,
+    user_id INT,
+    fname VARCHAR(255),
+    lname VARCHAR(255),
+    area_id INT,
+    address VARCHAR(255),
+    contact VARCHAR(20),
+    certificate VARCHAR(255),
+    account_no VARCHAR(50),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (area_id) REFERENCES Area(area_id)
+);
+
+CREATE TABLE Admin (
+    admin_id INT PRIMARY KEY,
+    user_id INT,
+    fname VARCHAR(255),
+    lname VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE Art (
+    art_id INT PRIMARY KEY,
+    artist_id INT,
+    cat_id INT,
+    price DECIMAL(10, 2),
+    ngo_id INT,
+    description TEXT,
+    art_name VARCHAR(255),
+    status VARCHAR(10),
+    image VARCHAR(255),
+    FOREIGN KEY (artist_id) REFERENCES Artists(artist_id),
+    FOREIGN KEY (cat_id) REFERENCES Category(cat_id),
+    FOREIGN KEY (ngo_id) REFERENCES NGO(ngo_id)
+);
