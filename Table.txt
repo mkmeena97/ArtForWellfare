@@ -1,0 +1,199 @@
+-- Create the database and use it
+CREATE DATABASE afs;
+USE afs;
+
+-- Create the 'Category' table
+CREATE TABLE Category (
+    cat_id INT PRIMARY KEY,
+    cat_name VARCHAR(255) NOT NULL
+);
+
+-- Insert sample data into 'Category' table
+INSERT INTO Category (cat_id, cat_name) VALUES
+    (1, 'Painting'),
+    (2, 'Sculpture'),
+    (3, 'Photography'),
+    (4, 'Pottery'),
+    (5, 'Jewelry');
+
+-- Create the modified 'Roles' table
+CREATE TABLE Roles (
+    role_id INT PRIMARY KEY,
+    role_name VARCHAR(255) NOT NULL
+);
+
+-- Insert sample data into 'Roles' table without the 'User' role
+INSERT INTO Roles (role_id, role_name) VALUES
+    (2, 'Artist'),
+    (3, 'Customer'),
+    (4, 'NGO'),
+    (5, 'Admin');
+
+-- Create the 'Questions' table
+CREATE TABLE Questions (
+    que_id INT PRIMARY KEY,
+    que_text TEXT NOT NULL
+);
+
+-- Insert sample data into 'Questions' table
+INSERT INTO Questions (que_id, que_text) VALUES
+    (1, 'What is your favorite color?'),
+    (2, 'What was the name of your first pet?'),
+    (3, 'In which city were you born?'),
+    (4, 'What is your mother\'s maiden name?'),
+    (5, 'What was the name of your elementary school?');
+
+-- Create the 'Users' table
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY,
+    user_name VARCHAR(255),
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    role_id INT,
+    que_id INT,
+    answer TEXT,
+    approve BOOLEAN,
+    FOREIGN KEY (role_id) REFERENCES Roles(role_id),
+    FOREIGN KEY (que_id) REFERENCES Questions(que_id)
+);
+
+-- Insert sample data into 'Users' table
+INSERT INTO Users (user_id, user_name, password, email, role_id, que_id, answer, approve) VALUES
+    (1, 'john_doe', 'password123', 'john.doe@example.com', 2, 1, 'Blue', true),
+    (2, 'sarah_smith', 'passw0rd', 'sarah.smith@example.com', 2, 2, 'Fluffy', true),
+    (3, 'mike_jones', '12345678', 'mike.jones@example.com', 3, 3, 'New York', false);
+
+-- Create the 'State' table
+CREATE TABLE State (
+    state_id INT PRIMARY KEY,
+    state_name VARCHAR(255) NOT NULL
+);
+
+-- Insert sample data into 'State' table
+INSERT INTO State (state_id, state_name) VALUES
+    (1, 'California'),
+    (2, 'Texas'),
+    (3, 'New York');
+
+-- Create the 'City' table
+CREATE TABLE City (
+    city_id INT PRIMARY KEY,
+    city_name VARCHAR(255) NOT NULL,
+    state_id INT,
+    FOREIGN KEY (state_id) REFERENCES State(state_id)
+);
+
+-- Insert sample data into 'City' table
+INSERT INTO City (city_id, city_name, state_id) VALUES
+    (1, 'Los Angeles', 1),
+    (2, 'Houston', 2),
+    (3, 'New York City', 3);
+
+-- Create the 'Area' table
+CREATE TABLE Area (
+    area_id INT PRIMARY KEY,
+    area_name VARCHAR(255) NOT NULL,
+    city_id INT,
+    FOREIGN KEY (city_id) REFERENCES City(city_id)
+);
+
+-- Insert sample data into 'Area' table
+INSERT INTO Area (area_id, area_name, city_id) VALUES
+    (1, 'Hollywood', 1),
+    (2, 'Downtown', 2),
+    (3, 'Upper East Side', 3);
+
+-- Create the 'Artists' table
+CREATE TABLE Artists (
+    artist_id INT PRIMARY KEY,
+    user_id INT,
+    fname VARCHAR(255),
+    lname VARCHAR(255),
+    area_id INT,
+    address VARCHAR(255),
+    contact VARCHAR(20),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (area_id) REFERENCES Area(area_id)
+);
+
+-- Insert sample data into 'Artists' table
+INSERT INTO Artists (artist_id, user_id, fname, lname, area_id, address, contact) VALUES
+    (1, 2, 'Sarah', 'Johnson', 1, '123 Artist St.', '+1 123-456-7890'),
+    (2, 3, 'Mike', 'Williams', 2, '456 Art Avenue', '+1 987-654-3210');
+
+-- Create the 'Customers' table
+CREATE TABLE Customers (
+    cust_id INT PRIMARY KEY,
+    user_id INT,
+    fname VARCHAR(255),
+    lname VARCHAR(255),
+    area_id INT,
+    address VARCHAR(255),
+    contact VARCHAR(20),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (area_id) REFERENCES Area(area_id)
+);
+
+-- Insert sample data into 'Customers' table
+INSERT INTO Customers (cust_id, user_id, fname, lname, area_id, address, contact) VALUES
+    (1, 1, 'John', 'Doe', 3, '789 Customer Rd.', '+1 111-222-3333'),
+    (2, 3, 'Lisa', 'Smith', 1, '555 Art Lover Ln.', '+1 444-555-6666');
+
+-- Create the 'NGO' table
+CREATE TABLE NGO (
+    ngo_id INT PRIMARY KEY,
+    user_id INT,
+    fname VARCHAR(255),
+    lname VARCHAR(255),
+    area_id INT,
+    address VARCHAR(255),
+    contact VARCHAR(20),
+    certificate VARCHAR(255),
+    account_no VARCHAR(50),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (area_id) REFERENCES Area(area_id)
+);
+
+-- Insert sample data into 'NGO' table
+INSERT INTO NGO (ngo_id, user_id, fname, lname, area_id, address, contact, certificate, account_no) VALUES
+    (1, 4, 'NGO', 'Foundation', 2, '789 Nonprofit Ave.', '+1 777-888-9999', '501(c)(3) Certification', 'NGOF123456789'),
+    (2, 5, 'Hope', 'Charity', 3, '123 Charity Rd.', '+1 111-222-3333', '501(c)(3) Certification', 'HOPE987654321');
+
+-- Create the 'Admin' table
+CREATE TABLE Admin (
+    admin_id INT PRIMARY KEY,
+    user_id INT,
+    fname VARCHAR(255),
+    lname VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+-- Insert sample data into 'Admin' table
+INSERT INTO Admin (admin_id, user_id, fname, lname) VALUES
+    (1, 5, 'Admin', 'Smith');
+
+-- Create the 'Art' table
+CREATE TABLE Art (
+    art_id INT PRIMARY KEY,
+    artist_id INT,
+    cat_id INT,
+    price DECIMAL(10, 2),
+    ngo_id INT,
+    description TEXT,
+    art_name VARCHAR(255),
+    status VARCHAR(10),
+    image VARCHAR(255),
+    FOREIGN KEY (artist_id) REFERENCES Artists(artist_id),
+    FOREIGN KEY (cat_id) REFERENCES Category(cat_id),
+    FOREIGN KEY (ngo_id) REFERENCES NGO(ngo_id)
+);
+
+-- Insert sample data into 'Art' table
+INSERT INTO Art (art_id, artist_id, cat_id, price, ngo_id, description, art_name, status, image) VALUES
+    (1, 1, 1, 250.00, 1, 'Beautiful landscape painting', 'Nature\'s Beauty', 'Available', 'landscape_painting.jpg'),
+    (2, 1, 3, 180.00, 2, 'Stunning black and white photograph', 'Urban Symphony', 'Available', 'urban_photo.jpg'),
+    (3, 2, 2, 350.00, 1, 'Elegant sculpture of a dancer', 'Graceful Movement', 'Sold', 'dancer_sculpture.jpg');
+
+-- Note: The 'image' column contains the file names of the images related to the art (not the actual image data).
+
+-- The table creation and sample data insertion are now complete.
