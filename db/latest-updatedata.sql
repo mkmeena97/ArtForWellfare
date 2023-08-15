@@ -241,11 +241,42 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
+DELIMITER //
+CREATE PROCEDURE UpdateFundsForSoldArt(art_id INT, ngo_id INT, price DECIMAL(10, 2))
+BEGIN
+  DECLARE ngo_amount DECIMAL(10, 2);
+  DECLARE afw_amount DECIMAL(10, 2);
+  
+  SET ngo_amount = price * 0.70;
+  SET afw_amount = price * 0.30;
+  
+  INSERT INTO `afs`.`ngo_fund` (`ngo_id`, `art_id`, `amount`)
+  VALUES (ngo_id, art_id, ngo_amount);
+  
+  INSERT INTO `afs`.`afw_fund` (`art_id`, `amount`)
+  VALUES (art_id, afw_amount);
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER update_funds_on_art_sold
+AFTER UPDATE ON `afs`.`arts`
+FOR EACH ROW
+BEGIN
+  IF NEW.status = 'sold' AND OLD.status = 'unsold' THEN
+    CALL UpdateFundsForSoldArt(NEW.art_id, NEW.ngo_id, NEW.price);
+  END IF;
+END;
+//
+DELIMITER ;
+
+
 -- -----------------------------------------------------
 -- Table `afs`.`afw_fund`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`afw_fund` (
-  `afwf_id` INT NOT NULL,
+  `afwf_id` INT NOT NULL AUTO_INCREMENT,
   `art_id` INT NOT NULL,
   `amount` DECIMAL(10,2) NULL DEFAULT NULL,
   PRIMARY KEY (`afwf_id`),
@@ -395,7 +426,18 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-
+DELIMITER //
+CREATE TRIGGER update_art_status_after_order_insert
+AFTER INSERT ON `afs`.`order_details`
+FOR EACH ROW
+BEGIN
+    -- Update the status of the artwork to 'sold'
+    UPDATE `afs`.`arts`
+    SET status = 'sold'
+    WHERE art_id = NEW.art_id;
+END;
+//
+DELIMITER ;
 
 
 
@@ -512,25 +554,25 @@ VALUES
     (210, 'Illustration');
 
 -- Insert data into afs.art table
-INSERT INTO `afs`.`arts` (`art_id`, `artist_id`, `cat_id`, `price`, `ngo_id`, `description`, `art_name`, `status`, `image`)
+INSERT INTO `afs`.`arts` (`art_id`, `artist_id`, `cat_id`, `price`, `ngo_id`, `description`, `art_name`, `image`)
 VALUES
-    (8001, 2001, 201, 100.00, 5001, 'Beautiful painting of a landscape', 'Landscape Painting', 'Available', 'landscape.jpg'),
-    (8002, 2002, 202, 250.00, 5002, 'Elegant sculpture depicting a figure', 'Elegant Sculpture', 'Available', 'sculpture.jpg'),
-    (8003, 2003, 203, 50.00, 5001, 'Vibrant photograph capturing a moment', 'Vibrant Photography', 'Sold', 'photo.jpg'),
-    (8004, 2001, 201, 75.00, 5002, 'Abstract artwork with bold colors', 'Abstract Art', 'Available', 'abstract.jpg'),
-    (8005, 2004, 204, 180.00, 5001, 'Detailed pencil drawing of a portrait', 'Portrait Drawing', 'Available', 'drawing.jpg'),
-    (8006, 2002, 205, 120.00, 5002, 'Digital art with a futuristic theme', 'Futuristic Digital Art', 'Sold', 'digital_art.jpg'),
-    (8007, 2003, 206, 300.00, 5001, 'Mixed media piece with various materials', 'Mixed Media Artwork', 'Available', 'mixed_media.jpg'),
-    (8008, 2005, 207, 40.00, 5002, 'Print of a nature scene', 'Nature Print', 'Available', 'nature_print.jpg'),
-    (8009, 2004, 208, 220.00, 5001, 'Ceramic vase with intricate design', 'Intricate Ceramic Vase', 'Sold', 'ceramic_vase.jpg'),
-    (8010, 2001, 209, 90.00, 5002, 'Textile art with vibrant patterns', 'Vibrant Textile Art', 'Available', 'textile_art.jpg'),
-    (8011, 2003, 210, 160.00, 5001, 'Illustration of a whimsical fantasy world', 'Fantasy Illustration', 'Available', 'fantasy_illustration.jpg'),
-    (8012, 2004, 201, 200.00, 5002, 'Realistic oil painting of a still life', 'Still Life Painting', 'Sold', 'still_life.jpg'),
-    (8013, 2002, 202, 130.00, 5001, 'Bronze sculpture of an animal', 'Animal Sculpture', 'Available', 'animal_sculpture.jpg'),
-    (8014, 2005, 203, 70.00, 5002, 'Black and white photography', 'Black and White Photo', 'Available', 'bw_photo.jpg'),
-    (8015, 2002, 204, 85.00, 5001, 'Charcoal drawing of a cityscape', 'Cityscape Drawing', 'Available', 'cityscape_drawing.jpg'),
-    (8016, 2001, 205, 180.00, 5002, 'Digital artwork with vibrant colors', 'Vibrant Digital Art', 'Sold', 'vibrant_digital.jpg'),
-    (8017, 2003, 206, 270.00, 5001, 'Mixed media collage with abstract elements', 'Abstract Mixed Media', 'Available', 'abstract_collage.jpg'),
-    (8018, 2004, 207, 30.00, 5002, 'Print of a seascape', 'Seascape Print', 'Available', 'seascape_print.jpg'),
-    (8019, 2005, 208, 240.00, 5001, 'Handcrafted ceramic bowl', 'Handcrafted Ceramic Bowl', 'Sold', 'ceramic_bowl.jpg'),
-    (8020, 2003, 209, 110.00, 5002, 'Textile artwork inspired by nature', 'Nature-Inspired Textile Art', 'Available', 'nature_textile.jpg');
+    (8001, 2001, 201, 100.00, 5001, 'Beautiful painting of a landscape', 'Landscape Painting', 'landscape.jpg'),
+    (8002, 2002, 202, 250.00, 5002, 'Elegant sculpture depicting a figure', 'Elegant Sculpture', 'sculpture.jpg'),
+    (8003, 2003, 203, 50.00, 5001, 'Vibrant photograph capturing a moment', 'Vibrant Photography', 'photo.jpg'),
+    (8004, 2001, 201, 75.00, 5002, 'Abstract artwork with bold colors', 'Abstract Art', 'abstract.jpg'),
+    (8005, 2004, 204, 180.00, 5001, 'Detailed pencil drawing of a portrait', 'Portrait Drawing', 'drawing.jpg'),
+    (8006, 2002, 205, 120.00, 5002, 'Digital art with a futuristic theme', 'Futuristic Digital Art', 'digital_art.jpg'),
+    (8007, 2003, 206, 300.00, 5001, 'Mixed media piece with various materials', 'Mixed Media Artwork', 'mixed_media.jpg'),
+    (8008, 2005, 207, 40.00, 5002, 'Print of a nature scene', 'Nature Print', 'nature_print.jpg'),
+    (8009, 2004, 208, 220.00, 5001, 'Ceramic vase with intricate design', 'Intricate Ceramic Vase', 'ceramic_vase.jpg'),
+    (8010, 2001, 209, 90.00, 5002, 'Textile art with vibrant patterns', 'Vibrant Textile Art', 'textile_art.jpg'),
+    (8011, 2003, 210, 160.00, 5001, 'Illustration of a whimsical fantasy world', 'Fantasy Illustration', 'fantasy_illustration.jpg'),
+    (8012, 2004, 201, 200.00, 5002, 'Realistic oil painting of a still life', 'Still Life Painting', 'still_life.jpg'),
+    (8013, 2002, 202, 130.00, 5001, 'Bronze sculpture of an animal', 'Animal Sculpture', 'animal_sculpture.jpg'),
+    (8014, 2005, 203, 70.00, 5002, 'Black and white photography', 'Black and White Photo', 'bw_photo.jpg'),
+    (8015, 2002, 204, 85.00, 5001, 'Charcoal drawing of a cityscape', 'Cityscape Drawing', 'cityscape_drawing.jpg'),
+    (8016, 2001, 205, 180.00, 5002, 'Digital artwork with vibrant colors', 'Vibrant Digital Art', 'vibrant_digital.jpg'),
+    (8017, 2003, 206, 270.00, 5001, 'Mixed media collage with abstract elements', 'Abstract Mixed Media', 'abstract_collage.jpg'),
+    (8018, 2004, 207, 30.00, 5002, 'Print of a seascape', 'Seascape Print', 'seascape_print.jpg'),
+    (8019, 2005, 208, 240.00, 5001, 'Handcrafted ceramic bowl', 'Handcrafted Ceramic Bowl', 'ceramic_bowl.jpg'),
+    (8020, 2003, 209, 110.00, 5002, 'Textile artwork inspired by nature', 'Nature-Inspired Textile Art', 'nature_textile.jpg');
