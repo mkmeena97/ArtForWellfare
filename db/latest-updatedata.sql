@@ -19,7 +19,7 @@ USE `afs` ;
 -- Table `afs`.`roles`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`roles` (
-  `role_id` INT NOT NULL UNIQUE,
+  `role_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `role_name` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`role_id`))
 ENGINE = InnoDB
@@ -31,9 +31,10 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `afs`.`questions`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`questions` (
-  `que_id` INT NOT NULL UNIQUE,
+  `que_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `que_text` TEXT NOT NULL,
   PRIMARY KEY (`que_id`))
+  AUTO_INCREMENT = 11
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -43,7 +44,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `afs`.`users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`users` (
-  `user_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
+  `user_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `user_name` VARCHAR(20) NOT NULL,
   `password` VARCHAR(20) NOT NULL,
   `email` VARCHAR(50) NOT NULL UNIQUE,
@@ -60,10 +61,11 @@ CREATE TABLE IF NOT EXISTS `afs`.`users` (
   CONSTRAINT `users_ibfk_2`
     FOREIGN KEY (`que_id`)
     REFERENCES `afs`.`questions` (`que_id`)
-)
+) AUTO_INCREMENT = 1001
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
 
 
 DELIMITER //
@@ -79,7 +81,6 @@ BEGIN
 END;
 //
 DELIMITER ;
-
 
 -- -----------------------------------------------------
 -- Table `afs`.`admin`
@@ -98,14 +99,13 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-
 -- -----------------------------------------------------
 -- Table `afs`.`state`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`states` (
-  `state_id` INT NOT NULL UNIQUE,
+  `state_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `state_name` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`state_id`))
+  PRIMARY KEY (`state_id`)) AUTO_INCREMENT = 41
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -115,14 +115,14 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `afs`.`city`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`cities` (
-  `city_id` INT NOT NULL UNIQUE,
+  `city_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `city_name` VARCHAR(50) NOT NULL,
   `state_id` INT NOT NULL,
   PRIMARY KEY (`city_id`),
   INDEX `state_id` (`state_id` ASC) VISIBLE,
   CONSTRAINT `city_ibfk_1`
     FOREIGN KEY (`state_id`)
-    REFERENCES `afs`.`states` (`state_id`))
+    REFERENCES `afs`.`states` (`state_id`)) AUTO_INCREMENT = 101
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -132,14 +132,14 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `afs`.`area`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`areas` (
-  `area_id` INT NOT NULL,
+  `area_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `area_name` VARCHAR(100) NOT NULL,
   `city_id` INT NOT NULL,
   PRIMARY KEY (`area_id`),
   INDEX `city_id` (`city_id` ASC) VISIBLE,
   CONSTRAINT `area_ibfk_1`
     FOREIGN KEY (`city_id`)
-    REFERENCES `afs`.`cities` (`city_id`))
+    REFERENCES `afs`.`cities` (`city_id`)) AUTO_INCREMENT = 141
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -149,13 +149,15 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `afs`.`artists`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`artists` (
-  `artist_id` INT NOT NULL UNIQUE,
+  `artist_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `user_id` INT NOT NULL,
-  `fname` VARCHAR(255) NOT NULL,
-  `lname` VARCHAR(255) NULL DEFAULT NULL,
+  `fname` VARCHAR(50) NOT NULL,
+  `lname` VARCHAR(50) NULL DEFAULT NULL,
   `area_id` INT NOT NULL,
   `address` VARCHAR(255) NULL DEFAULT NULL,
   `contact` VARCHAR(20) NOT NULL UNIQUE,
+  `speciality` VARCHAR(100) NULL DEFAULT NULL,
+  
   PRIMARY KEY (`artist_id`),
   INDEX `user_id` (`user_id` ASC) VISIBLE,
   INDEX `area_id` (`area_id` ASC) VISIBLE,
@@ -164,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `afs`.`artists` (
     REFERENCES `afs`.`users` (`user_id`),
   CONSTRAINT `artists_ibfk_2`
     FOREIGN KEY (`area_id`)
-    REFERENCES `afs`.`areas` (`area_id`))
+    REFERENCES `afs`.`areas` (`area_id`)) AUTO_INCREMENT = 2001
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -174,9 +176,9 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `afs`.`category`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`categories` (
-  `cat_id` INT NOT NULL UNIQUE,
+  `cat_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `cat_name` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`cat_id`))
+  PRIMARY KEY (`cat_id`)) AUTO_INCREMENT = 201
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -186,7 +188,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `afs`.`ngo`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`ngo` (
-  `ngo_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
+  `ngo_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `fname` VARCHAR(50) NOT NULL,
   `lname` VARCHAR(50) NULL DEFAULT NULL,
@@ -203,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `afs`.`ngo` (
     REFERENCES `afs`.`users` (`user_id`),
   CONSTRAINT `ngo_ibfk_2`
     FOREIGN KEY (`area_id`)
-    REFERENCES `afs`.`areas` (`area_id`))
+    REFERENCES `afs`.`areas` (`area_id`)) AUTO_INCREMENT = 5001
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -213,7 +215,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `afs`.`art`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`arts` (
-  `art_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
+  `art_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `artist_id` INT NOT NULL,
   `cat_id` INT NOT NULL,
   `price` DECIMAL(10,2) NOT NULL,
@@ -235,11 +237,10 @@ CREATE TABLE IF NOT EXISTS `afs`.`arts` (
   CONSTRAINT `art_ibfk_3`
     FOREIGN KEY (`ngo_id`)
     REFERENCES `afs`.`ngo` (`ngo_id`)
-)
+) AUTO_INCREMENT = 8001
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
 
 DELIMITER //
 CREATE PROCEDURE UpdateFundsForSoldArt(art_id INT, ngo_id INT, price DECIMAL(10, 2))
@@ -275,15 +276,17 @@ DELIMITER ;
 -- -----------------------------------------------------
 -- Table `afs`.`afw_fund`
 -- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `afs`.`afw_fund` (
   `afwf_id` INT NOT NULL AUTO_INCREMENT,
   `art_id` INT NOT NULL,
   `amount` DECIMAL(10,2) NULL DEFAULT NULL,
+  `datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`afwf_id`),
   INDEX `art_id` (`art_id` ASC) VISIBLE,
   CONSTRAINT `afw_fund_ibfk_1`
     FOREIGN KEY (`art_id`)
-    REFERENCES `afs`.`arts` (`art_id`))
+    REFERENCES `afs`.`arts` (`art_id`)) AUTO_INCREMENT = 301
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -293,7 +296,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `afs`.`customers`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`customers` (
-  `cust_id` INT NOT NULL AUTO_INCREMENT UNIQUE,
+  `cust_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `fname` VARCHAR(50) NOT NULL ,
   `lname` VARCHAR(255) NULL DEFAULT NULL,
@@ -308,44 +311,7 @@ CREATE TABLE IF NOT EXISTS `afs`.`customers` (
     REFERENCES `afs`.`users` (`user_id`),
   CONSTRAINT `customers_ibfk_2`
     FOREIGN KEY (`area_id`)
-    REFERENCES `afs`.`areas` (`area_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `afs`.`cart`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `afs`.`cart` (
-  `cart_id` INT NOT NULL AUTO_INCREMENT,
-  `cust_id` INT NOT NULL,
-  PRIMARY KEY (`cart_id`),
-  INDEX `cust_id` (`cust_id` ASC) VISIBLE,
-  CONSTRAINT `cart_ibfk_1`
-    FOREIGN KEY (`cust_id`)
-    REFERENCES `afs`.`customers` (`cust_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `afs`.`cart_details`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `afs`.`cart_details` (
-  `cd_id` INT NOT NULL AUTO_INCREMENT,
-  `cart_id` INT NOT NULL ,
-  `art_id` INT NOT NULL ,
-  PRIMARY KEY (`cd_id`),
-  INDEX `cart_id` (`cart_id` ASC) VISIBLE,
-  INDEX `art_id` (`art_id` ASC) VISIBLE,
-  CONSTRAINT `cart_details_ibfk_1`
-    FOREIGN KEY (`cart_id`)
-    REFERENCES `afs`.`cart` (`cart_id`),
-  CONSTRAINT `cart_details_ibfk_2`
-    FOREIGN KEY (`art_id`)
-    REFERENCES `afs`.`arts` (`art_id`))
+    REFERENCES `afs`.`areas` (`area_id`)) AUTO_INCREMENT = 3001
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -359,6 +325,7 @@ CREATE TABLE IF NOT EXISTS `afs`.`ngo_fund` (
   `ngo_id` INT NOT NULL ,
   `art_id` INT NOT NULL,
   `amount` DECIMAL(10,2) NULL DEFAULT NULL,
+  `datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`nf_id`),
   INDEX `ngo_id` (`ngo_id` ASC) VISIBLE,
   INDEX `art_id` (`art_id` ASC) VISIBLE,
@@ -367,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `afs`.`ngo_fund` (
     REFERENCES `afs`.`ngo` (`ngo_id`),
   CONSTRAINT `ngo_fund_ibfk_2`
     FOREIGN KEY (`art_id`)
-    REFERENCES `afs`.`arts` (`art_id`))
+    REFERENCES `afs`.`arts` (`art_id`)) AUTO_INCREMENT = 401
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -378,34 +345,30 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`orders` (
   `order_id` INT NOT NULL AUTO_INCREMENT,
-  `cart_id` INT NOT NULL,
+  `cust_id` INT NOT NULL,
   `amount` DECIMAL(10,2) NOT NULL,
-  `date` DATE,
+  `datetime` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_id`),
-  INDEX `cart_id` (`cart_id` ASC) VISIBLE,
-  CONSTRAINT `orders_ibfk_1`
-    FOREIGN KEY (`cart_id`)
-    REFERENCES `afs`.`cart` (`cart_id`)
-)
+  INDEX `fk_cust_id_idx` (`cust_id` ASC) VISIBLE,
+  CONSTRAINT `fk_cust_id`
+    FOREIGN KEY (`cust_id`)
+    REFERENCES `afs`.`customers` (`cust_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) AUTO_INCREMENT = 7001
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-DELIMITER //
-CREATE TRIGGER set_default_date
-BEFORE INSERT ON `afs`.`orders`
-FOR EACH ROW
-BEGIN
-  SET NEW.date = CURRENT_DATE;
-END;
-//
-DELIMITER ;
+
+
+
 
 -- -----------------------------------------------------
 -- Table `afs`.`order_details`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `afs`.`order_details` (
-  `od_id` INT NOT NULL,
+  `od_id` INT NOT NULL  AUTO_INCREMENT,
   `order_id` INT NOT NULL ,
   `art_id` INT NOT NULL ,
   PRIMARY KEY (`od_id`),
@@ -416,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `afs`.`order_details` (
     REFERENCES `afs`.`orders` (`order_id`),
   CONSTRAINT `order_details_ibfk_2`
     FOREIGN KEY (`art_id`)
-    REFERENCES `afs`.`arts` (`art_id`))
+    REFERENCES `afs`.`arts` (`art_id`)) AUTO_INCREMENT = 7501
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -441,138 +404,166 @@ DELIMITER ;
 
 
 
-
-
+-- ------------------------------------------------------------------------------------
+--	DUMMY DATA
+-- ------------------------------------------------------------------------------------
 
 
 -- Insert data into afs.roles table
-INSERT INTO `afs`.`roles` (`role_id`, `role_name`)
+
+
+
+INSERT INTO `afs`.`roles` (`role_name`)
 VALUES
-    (1, 'Admin'),
-    (2, 'Artist'),
-    (3, 'Customer'),
-    (4, 'NGO');
+    ('Admin'),
+    ('Artist'),
+    ('Customer'),
+    ('NGO');
 
 -- Insert data into afs.questions table
-INSERT INTO `afs`.`questions` (`que_id`, `que_text`)
+
+INSERT INTO `afs`.`questions` (`que_text`)
 VALUES
-    (11, 'What is your favorite color?'),
-    (12, 'What is your pet\'s name?'),
-    (13, 'What is your mother\'s maiden name?');
+    ('What is your favorite color?'),
+    ('What is your pet\'s name?'),
+    ('What is your mother\'s maiden name?');
 
 -- Insert data into afs.users table
-INSERT INTO afs.users (user_id, user_name, password, email, role_id, que_id, answer, approve)
-VALUES
-    (1001, 'admin', 'admin123', 'admin@example.com', 1, 11, 'Blue', 1),
-    (1002, 'artist1', 'artist123', 'artist1@example.com', 2, 12, 'Fluffy', 1),
-    (1003, 'customer1', 'customer123', 'customer1@example.com', 3, 13, 'Smith', 1),
-    (1004, 'ngo1', 'ngo123', 'ngo1@example.com', 4, 11, 'Blue', 1),
-    (1005, 'artist2', 'artist456', 'artist2@example.com', 2, 12, 'Buddy', 1),
-    (1006, 'ngo2', 'ngo789', 'ngo2@example.com', 4, 11, 'Green', 1),
-    (1007, 'customer2', 'customer456', 'customer2@example.com', 3, 13, 'Johnson', 1),
-    (1008, 'admin2', 'admin456', 'admin2@example.com', 1, 11, 'Red', 1),
-    (1009, 'Alice', 'customer123', 'alice@example.com', 3, 13, 'Brown', 1),
-    (1010, 'Bob', 'customer456', 'bob@example.com', 3, 11, 'Yellow', 1),
-    (1011, 'Eva', 'customer456', 'eva@example.com', 3, 12, 'Whiskers', 1),
-    (1012, 'JohnDoe', 'admin123', 'john.doe@example.com', 1, 13, 'Garcia', 1),
-    (1013, 'EmilyJ', 'admin456', 'emily.johnson@example.com', 1, 11, 'Purple', 1),
-    (1014, 'JaneSmith', 'artist123', 'jane.smith@example.com', 2, 12, 'Milo', 1),
-    (1015, 'WilliamB', 'artist456', 'william.brown@example.com', 2, 13, 'Davis', 1),
-    (1016, 'MichaelJ', 'artist456', 'michael.johnson@example.com', 2, 11, 'Orange', 1);
 
--- Insert data into afs.admin table
-INSERT INTO afs.admins (admin_id, user_id, fname, lname)
+INSERT INTO afs.users (user_name, password, email, role_id, que_id, answer, approve)
 VALUES
-    (901, 1001, 'John', 'Doe'),
-    (902, 1008, 'Emily', 'Johnson'),
-    (903, 1012, 'John', 'Doe'), 
-    (904, 1013, 'Emily', 'Johnson');
+    ('admin', 'admin123', 'admin@example.com', 1, 11, 'Blue', 1),
+    ('artist1', 'artist123', 'artist1@example.com', 2, 12, 'Fluffy', 1),
+    ('customer1', 'customer123', 'customer1@example.com', 3, 13, 'Smith', 1),
+    ('ngo1', 'ngo123', 'ngo1@example.com', 4, 11, 'Blue', 1),
+    ('artist2', 'artist456', 'artist2@example.com', 2, 12, 'Buddy', 1),
+    ('ngo2', 'ngo789', 'ngo2@example.com', 4, 11, 'Green', 1),
+    ('customer2', 'customer456', 'customer2@example.com', 3, 13, 'Johnson', 1),
+    ('admin2', 'admin456', 'admin2@example.com', 1, 11, 'Red', 1),
+    ('Alice', 'customer123', 'alice@example.com', 3, 13, 'Brown', 1),
+    ('Bob', 'customer456', 'bob@example.com', 3, 11, 'Yellow', 1),
+    ('Eva', 'customer456', 'eva@example.com', 3, 12, 'Whiskers', 1),
+    ('JohnDoe', 'admin123', 'john.doe@example.com', 1, 13, 'Garcia', 1),
+    ('EmilyJ', 'admin456', 'emily.johnson@example.com', 1, 11, 'Purple', 1),
+    ('JaneSmith', 'artist123', 'jane.smith@example.com', 2, 12, 'Milo', 1),
+    ('WilliamB', 'artist456', 'william.brown@example.com', 2, 13, 'Davis', 1),
+    ('MichaelJ', 'artist456', 'michael.johnson@example.com', 2, 11, 'Orange', 1);
+
+
+
 
 -- Insert data into afs.state table
-INSERT INTO afs.states (state_id, state_name)
+
+INSERT INTO afs.states (state_name)
 VALUES
-    (41, 'Delhi'),
-    (42, 'Maharashtra'),
-    (43, 'Karnataka'),
-    (44, 'Tamil Nadu'),
-    (45, 'Uttar Pradesh');
+    ('Delhi'),
+    ('Maharashtra'),
+    ('Karnataka'),
+    ('Tamil Nadu'),
+    ('Uttar Pradesh');
+
+
+-- Insert data into afs.admin table
+
+INSERT INTO afs.admins (user_id, fname, lname)
+VALUES
+    (1001, 'John', 'Doe'),
+    (1008, 'Emily', 'Johnson'),
+    (1012, 'John', 'Doe'), 
+    (1013, 'Emily', 'Johnson');
+
+
 
 -- Insert data into afs.city table
-INSERT INTO afs.cities (city_id, city_name, state_id)
+
+INSERT INTO afs.cities (city_name, state_id)
 VALUES
-    (101, 'New Delhi', 41),
-    (102, 'Mumbai', 42),
-    (103, 'Bangalore', 43),
-    (104, 'Chennai', 44),
-    (105, 'Lucknow', 45);
+    ('New Delhi', 41),
+    ('Mumbai', 42),
+    ('Bangalore', 43),
+    ('Chennai', 44),
+    ('Lucknow', 45);
+    
+    
 
 -- Insert data into afs.area table
-INSERT INTO afs.areas (area_id, area_name, city_id)
+    
+INSERT INTO afs.areas (area_name, city_id)
 VALUES
-    (141, 'Connaught Place', 101),
-    (142, 'Dadar', 102),
-    (143, 'Koramangala', 103),
-    (144, 'T. Nagar', 104),
-    (145, 'Hazratganj', 105);
+    ('Connaught Place', 101),
+    ('Dadar', 102),
+    ('Koramangala', 103),
+    ('T. Nagar', 104),
+    ('Hazratganj', 105);
 
--- Insert data into afs.artists table
-INSERT INTO afs.artists (artist_id, user_id, fname, lname, area_id, contact)
+-- Insert data into afs.artists table    
+
+INSERT INTO afs.artists (user_id, fname, lname, area_id, contact, speciality)
 VALUES
-    (2001, 1002, 'Jane', 'Smith', 141, '555-1234'),
-    (2002, 1005, 'Artist', 'Two', 142, '555-5555'), 
-    (2003, 1014, 'Jane', 'Smith', 141, '555-1235'), 
-    (2004, 1015, 'William', 'Brown', 142, '555-5678'),
-    (2005, 1016, 'Michael', 'Johnson', 141, '555-7890');
+    (1002, 'Jane', 'Smith', 141, '555-1234', 'Impressionism'),
+    (1005, 'Artist', 'Two', 142, '555-5555', 'Abstract'),
+    (1014, 'Jane', 'Smith', 141, '555-1235', 'Realism'),
+    (1015, 'William', 'Brown', 142, '555-5678', 'Cubism'),
+    (1016, 'Michael', 'Johnson', 141, '555-7890', 'Surrealism');
 
 -- Insert data into afs.customers table
-INSERT INTO afs.customers (cust_id, user_id, fname, lname, area_id, contact)
+    
+INSERT INTO afs.customers (user_id, fname, lname, area_id, contact)
 VALUES
-    (3001, 1003, 'Customer', 'One', 142, '555-4444'), 
-    (3002, 1007, 'Customer', 'Two', 141, '555-5555'), 
-    (3003, 1009, 'Alice', 'Johnson', 141, '555-1111'),
-    (3004, 1010, 'Bob', 'Williams', 142, '555-2222'),
-    (3005, 1011, 'Eva', 'Martinez', 141, '555-3333');
+    (1003, 'Customer', 'One', 142, '555-4444'), 
+    (1007, 'Customer', 'Two', 141, '555-5555'), 
+    (1009, 'Alice', 'Johnson', 141, '555-1111'),
+    (1010, 'Bob', 'Williams', 142, '555-2222'),
+    (1011, 'Eva', 'Martinez', 141, '555-3333');    
 
--- Insert data into afs.ngo table
-INSERT INTO afs.ngo (ngo_id, user_id, fname, lname, area_id, address, contact)
+
+-- Insert data into afs.ngo table    
+
+INSERT INTO afs.ngo (user_id, fname, lname, area_id, address, contact)
 VALUES
-    (5001, 1004, 'NGO One', 'Organization', 141, '212 gokhlenagar' , '555-9876'),
-    (5002, 1006, 'NGO Two', 'Foundation', 142, '280 jagatpura' , '555-5432');
+    (1004, 'NGO One', 'Organization', 141, '212 gokhlenagar' , '555-9876'),
+    (1006, 'NGO Two', 'Foundation', 142, '280 jagatpura' , '555-5432');
 
 -- Insert data into afs.category table
-INSERT INTO `afs`.`categories` (`cat_id`, `cat_name`)
+INSERT INTO `afs`.`categories` (`cat_name`)
 VALUES
-    (201, 'Painting'),
-    (202, 'Sculpture'),
-    (203, 'Photography'),
-    (204, 'Drawing'),
-    (205, 'Digital Art'),
-    (206, 'Mixed Media'),
-    (207, 'Printmaking'),
-    (208, 'Ceramics'),
-    (209, 'Textile Art'),
-    (210, 'Illustration');
+    ('Painting'),
+    ('Sculpture'),
+    ('Photography'),
+    ('Drawing'),
+    ('Digital Art'),
+    ('Mixed Media'),
+    ('Printmaking'),
+    ('Ceramics'),
+    ('Textile Art'),
+    ('Illustration');
 
 -- Insert data into afs.art table
-INSERT INTO `afs`.`arts` (`art_id`, `artist_id`, `cat_id`, `price`, `ngo_id`, `description`, `art_name`, `image`)
+
+INSERT INTO `afs`.`arts` (`artist_id`, `cat_id`, `price`, `ngo_id`, `description`, `art_name`, `image`)
 VALUES
-    (8001, 2001, 201, 100.00, 5001, 'Beautiful painting of a landscape', 'Landscape Painting', 'landscape.jpg'),
-    (8002, 2002, 202, 250.00, 5002, 'Elegant sculpture depicting a figure', 'Elegant Sculpture', 'sculpture.jpg'),
-    (8003, 2003, 203, 50.00, 5001, 'Vibrant photograph capturing a moment', 'Vibrant Photography', 'photo.jpg'),
-    (8004, 2001, 201, 75.00, 5002, 'Abstract artwork with bold colors', 'Abstract Art', 'abstract.jpg'),
-    (8005, 2004, 204, 180.00, 5001, 'Detailed pencil drawing of a portrait', 'Portrait Drawing', 'drawing.jpg'),
-    (8006, 2002, 205, 120.00, 5002, 'Digital art with a futuristic theme', 'Futuristic Digital Art', 'digital_art.jpg'),
-    (8007, 2003, 206, 300.00, 5001, 'Mixed media piece with various materials', 'Mixed Media Artwork', 'mixed_media.jpg'),
-    (8008, 2005, 207, 40.00, 5002, 'Print of a nature scene', 'Nature Print', 'nature_print.jpg'),
-    (8009, 2004, 208, 220.00, 5001, 'Ceramic vase with intricate design', 'Intricate Ceramic Vase', 'ceramic_vase.jpg'),
-    (8010, 2001, 209, 90.00, 5002, 'Textile art with vibrant patterns', 'Vibrant Textile Art', 'textile_art.jpg'),
-    (8011, 2003, 210, 160.00, 5001, 'Illustration of a whimsical fantasy world', 'Fantasy Illustration', 'fantasy_illustration.jpg'),
-    (8012, 2004, 201, 200.00, 5002, 'Realistic oil painting of a still life', 'Still Life Painting', 'still_life.jpg'),
-    (8013, 2002, 202, 130.00, 5001, 'Bronze sculpture of an animal', 'Animal Sculpture', 'animal_sculpture.jpg'),
-    (8014, 2005, 203, 70.00, 5002, 'Black and white photography', 'Black and White Photo', 'bw_photo.jpg'),
-    (8015, 2002, 204, 85.00, 5001, 'Charcoal drawing of a cityscape', 'Cityscape Drawing', 'cityscape_drawing.jpg'),
-    (8016, 2001, 205, 180.00, 5002, 'Digital artwork with vibrant colors', 'Vibrant Digital Art', 'vibrant_digital.jpg'),
-    (8017, 2003, 206, 270.00, 5001, 'Mixed media collage with abstract elements', 'Abstract Mixed Media', 'abstract_collage.jpg'),
-    (8018, 2004, 207, 30.00, 5002, 'Print of a seascape', 'Seascape Print', 'seascape_print.jpg'),
-    (8019, 2005, 208, 240.00, 5001, 'Handcrafted ceramic bowl', 'Handcrafted Ceramic Bowl', 'ceramic_bowl.jpg'),
-    (8020, 2003, 209, 110.00, 5002, 'Textile artwork inspired by nature', 'Nature-Inspired Textile Art', 'nature_textile.jpg');
+    (2001, 201, 100.00, 5001, 'Beautiful painting of a landscape', 'Landscape Painting', 'landscape.jpg'),
+    (2002, 202, 250.00, 5002, 'Elegant sculpture depicting a figure', 'Elegant Sculpture', 'sculpture.jpg'),
+    (2003, 203, 50.00, 5001, 'Vibrant photograph capturing a moment', 'Vibrant Photography', 'photo.jpg'),
+    (2001, 201, 75.00, 5002, 'Abstract artwork with bold colors', 'Abstract Art', 'abstract.jpg'),
+    (2004, 204, 180.00, 5001, 'Detailed pencil drawing of a portrait', 'Portrait Drawing', 'drawing.jpg'),
+    (2002, 205, 120.00, 5002, 'Digital art with a futuristic theme', 'Futuristic Digital Art', 'digital_art.jpg'),
+    (2003, 206, 300.00, 5001, 'Mixed media piece with various materials', 'Mixed Media Artwork', 'mixed_media.jpg'),
+    (2005, 207, 40.00, 5002, 'Print of a nature scene', 'Nature Print', 'nature_print.jpg'),
+    (2004, 208, 220.00, 5001, 'Ceramic vase with intricate design', 'Intricate Ceramic Vase', 'ceramic_vase.jpg'),
+    (2001, 209, 90.00, 5002, 'Textile art with vibrant patterns', 'Vibrant Textile Art', 'textile_art.jpg'),
+    (2003, 210, 160.00, 5001, 'Illustration of a whimsical fantasy world', 'Fantasy Illustration', 'fantasy_illustration.jpg'),
+    (2004, 201, 200.00, 5002, 'Realistic oil painting of a still life', 'Still Life Painting', 'still_life.jpg'),
+    (2002, 202, 130.00, 5001, 'Bronze sculpture of an animal', 'Animal Sculpture', 'animal_sculpture.jpg'),
+    (2005, 203, 70.00, 5002, 'Black and white photography', 'Black and White Photo', 'bw_photo.jpg'),
+    (2002, 204, 85.00, 5001, 'Charcoal drawing of a cityscape', 'Cityscape Drawing', 'cityscape_drawing.jpg'),
+    (2001, 205, 180.00, 5002, 'Digital artwork with vibrant colors', 'Vibrant Digital Art', 'vibrant_digital.jpg'),
+    (2003, 206, 270.00, 5001, 'Mixed media collage with abstract elements', 'Abstract Mixed Media', 'abstract_collage.jpg'),
+    (2004, 207, 30.00, 5002, 'Print of a seascape', 'Seascape Print', 'seascape_print.jpg'),
+    (2005, 208, 240.00, 5001, 'Handcrafted ceramic bowl', 'Handcrafted Ceramic Bowl', 'ceramic_bowl.jpg'),
+    (2003, 209, 110.00, 5002, 'Textile artwork inspired by nature', 'Nature-Inspired Textile Art', 'nature_textile.jpg');
+
+    
+  
+    
+  
