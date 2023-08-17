@@ -27,17 +27,6 @@ DELIMITER ;
 
 
 DELIMITER //
-CREATE TRIGGER set_default_date
-BEFORE INSERT ON `afs`.`orders`
-FOR EACH ROW
-BEGIN
-  SET NEW.date = CURRENT_DATE;
-END;
-//
-DELIMITER ;
-
-
-DELIMITER //
 CREATE TRIGGER update_art_status_after_order_insert
 AFTER INSERT ON `afs`.`order_details`
 FOR EACH ROW
