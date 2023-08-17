@@ -1,13 +1,13 @@
-<h1>Art For Welfare<h1>
-<br/>
-<p>Welcome to our website, where we showcase an exquisite collection of art created by talented local artists. Our platform serves a dual purpose: to promote the beauty of art and to support a noble cause. 
+<h1>ArtForWelfare Project Summary</h1>
 
-With every purchase made on our website, the funds raised are dedicated to helping patients in need. We firmly believe that art has the power to heal and uplift, and we have harnessed this potential to make a positive impact on the lives of those facing health challenges.
+<p>The ArtForWelfare project is a groundbreaking initiative that utilizes the captivating force of art to raise essential funds for societal welfare programs. Through the creation and sale of purposeful artworks, the project aims to make a direct and tangible impact on marginalized communities. This summary encapsulates the core essence of the ArtForWelfare project:</p>
 
-By purchasing art from our platform, you not only acquire a unique and meaningful piece but also contribute directly to our charitable efforts. Your generosity enables us to provide vital support to patients by funding their medical treatments, offering financial assistance for essential medications, and facilitating access to specialized care.
+<h2>Objective:</h2>
+<p>ArtForWelfare seeks to generate funds that directly contribute to welfare programs by leveraging the sale of captivating artworks. The project empowers artists and supporters to collaborate in making a meaningful difference.</p>
 
-Through our collaboration with local artists, we aim to foster a vibrant and thriving artistic community while advocating for the well-being of patients in our region. Each artwork displayed on our website represents a collaboration between the artist's creative vision and our shared commitment to making a difference.
+<h2>Key Features:</h2>
 
-We invite you to explore our diverse collection, where you will find a wide range of artistic styles, mediums, and themes. Whether you're a seasoned art collector or a first-time buyer, there's something here to captivate every taste and sensibility.
-
-Together, let's create a harmonious symphony of art and compassion. Join us in supporting patients in need, one brushstroke at a time.</p>
+<h3>Fundraising Through Art:</h3> ArtForWelfare taps into the allure of art to create a sustainable funding source for welfare programs.
+<h3>Empowerment of Artists:</h3> The project provides a platform for artists to contribute their talents to a significant cause.
+<h3>Direct Societal Impact:</h3> Proceeds from art sales are channeled directly into welfare programs, leading to immediate positive change.
+<h3>Collaborative Community:</h3> ArtForWelfare fosters a community of artists and supporters dedicated to driving positive societal change.
