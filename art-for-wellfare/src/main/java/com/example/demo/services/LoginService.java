@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.services;
 
 import java.util.Optional;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.Login;
-import com.example.demo.repository.LoginRepository;
+import com.example.demo.repositories.LoginRepository;
 
 @Service
 public class LoginService {
@@ -26,6 +26,12 @@ public class LoginService {
 			l=null;
 		}
 		return l;
+	}
+	
+	
+	public Login checkSecurityAnswer(String emailid,String answer)
+	{
+		return lrepo.checkAnswer(emailid,answer).get();
 	}
 	
 	

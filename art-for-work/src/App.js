@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import LogoutComp from './component/LogoutComp';
 import ForgotPassword from './component/ForgotPassword';
 import CustomerReg from './component/CustomerReg';
+import NgoReg from './component/NgoReg';
 
 
 
@@ -57,6 +58,7 @@ function App() {
                 <Route path='/logout' element={<LogoutComp></LogoutComp>}></Route>
                 <Route path='/forgotpassword' element={<ForgotPassword></ForgotPassword>}></Route>
                 <Route path='/reg_customer' element={<CustomerReg></CustomerReg>}></Route>
+                <Route path='/reg_ngo' element={<NgoReg></NgoReg>}></Route>
             </Routes>
                       
             <h1 className="bg-primary text-center p-4">Welcome to Art for Welfare Platform</h1>

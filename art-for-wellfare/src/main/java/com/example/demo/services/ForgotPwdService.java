@@ -1,12 +1,14 @@
-package com.example.demo.service;
+package com.example.demo.services;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entities.Login;
 import com.example.demo.entities.Question;
-import com.example.demo.repository.ForgotpwdRepository;
+import com.example.demo.repositories.ForgotpwdRepository;
+import com.example.demo.repositories.LoginRepository;
 
 @Service
 public class ForgotPwdService {
@@ -14,14 +16,17 @@ public class ForgotPwdService {
 	@Autowired
 	ForgotpwdRepository frepo;
 	
-	public String getQuestionText(String email)
+	@Autowired
+	LoginRepository lrepo;
+	
+	public Question getQuestionText(String email)
 	{
-		String q;
+		Question q;
 		System.out.println(email);
-		Optional<String> ol = frepo.getQueTextByEmail(email);
+		Optional<Question> oq = frepo.getQueTextByEmail(email);
 		try
 		{
-			q=ol.get();
+			q=oq.get();
 		}
 		catch(Exception e)
 		{
@@ -31,4 +36,10 @@ public class ForgotPwdService {
 		}
 		return q;
 	}
+	
+	public int updatePassword(String emailid,String password)
+	{
+		return lrepo.resetPassword(emailid, password);
+	}
+	
 }

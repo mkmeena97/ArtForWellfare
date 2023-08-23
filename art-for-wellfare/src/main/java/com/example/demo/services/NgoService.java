@@ -5,21 +5,26 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.Customer;
 import com.example.demo.entities.Login;
-import com.example.demo.repositories.CustomerRepository;
+import com.example.demo.entities.Ngo;
+import com.example.demo.repositories.NgoRepository;
 
 @Service
-public class CustomerService {
+public class NgoService {
 
 	@Autowired
-	CustomerRepository crepo;
+	NgoRepository nrepo;
 	
-	public Customer getCustomer(Login user_id)
+	
+	public Ngo getNgo(Login user_id)
 	{
-		return crepo.getCustomer(user_id);
+		return nrepo.getNgo(user_id);
 	}
 	
-	public Customer saveCustomer(Customer c)
+	public Ngo saveNgo(Ngo o)
 	{
-		return crepo.save(c);
+		return nrepo.save(o);
 	}
+	
+	
+  
 }
